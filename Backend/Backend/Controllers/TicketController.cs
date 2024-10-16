@@ -18,7 +18,7 @@ public class TicketController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetAllTickets(int page, int pageSize, Status? status = null, string? description = null, DateOnly? startDate = null, DateOnly? endDate = null)
+    public async Task<IActionResult> GetAllTickets(int page, int pageSize, Status? status = null, string? description = null, DateTime? startDate = null, DateTime? endDate = null)
     {
         List<Ticket> tickets = await _ticketService.GetAllTickets(page, pageSize, status, description, startDate, endDate);
         return Ok(tickets);

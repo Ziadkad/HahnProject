@@ -18,9 +18,10 @@ public class AppDbContext : DbContext
         {
             tickets[i] = new Ticket
             {
+                TicketId = i+1,
                 Description = GetDescription(i),
                 Status = (i % 2 == 0) ? Status.Open : Status.Closed,
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays((i % 2 == 0) ? 2 : 3))
+                Date = DateTime.Now.AddDays((i % 2 == 0) ? 2 : 3)
             };
         }
         modelBuilder.Entity<Ticket>().HasData(tickets);

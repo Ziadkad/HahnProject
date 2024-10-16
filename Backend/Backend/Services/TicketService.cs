@@ -23,7 +23,7 @@ public class TicketService : ITicketService
     }
     
     //Retrieves all tickets with optional filtering by status, description, and date range.
-    public async Task<List<Ticket>> GetAllTickets(int page, int pageSize, Status? status = null, string? description = null, DateOnly? startDate = null, DateOnly? endDate = null)
+    public async Task<List<Ticket>> GetAllTickets(int page, int pageSize, Status? status = null, string? description = null, DateTime? startDate = null, DateTime? endDate = null)
     {
         List<Expression<Func<Ticket, bool>>> filters = new List<Expression<Func<Ticket, bool>>>();
         

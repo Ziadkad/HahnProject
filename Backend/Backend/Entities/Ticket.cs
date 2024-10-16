@@ -11,5 +11,5 @@ public class Ticket
     public int TicketId { get; set; }
     public string Description { get; set; } = string.Empty;
     public Status Status { get; set; }
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 }
