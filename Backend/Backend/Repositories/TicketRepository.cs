@@ -6,11 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repositories;
 
-public class TicketRepostory : GenericRepository<Ticket>,ITicketRepostory
+public class TicketRepository : GenericRepository<Ticket>,ITicketRepository
 {
     private readonly AppDbContext _dbSet;
-    public TicketRepostory(AppDbContext db) : base(db)
+    public TicketRepository(AppDbContext db) : base(db)
     {
+        _dbSet = db;
     }
     
     public async Task<List<Ticket>> GetAllAsNoTrackingWithPagination(
