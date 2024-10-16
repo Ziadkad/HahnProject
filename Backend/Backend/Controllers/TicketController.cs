@@ -3,6 +3,7 @@ using Backend.Entities;
 using Backend.Enums;
 using Backend.Exceptions;
 using Backend.Services.Interfaces;
+using Backend.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
@@ -20,8 +21,8 @@ public class TicketController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllTickets(int page, int pageSize, Status? status = null, string? description = null, DateTime? startDate = null, DateTime? endDate = null)
     {
-        List<Ticket> tickets = await _ticketService.GetAllTickets(page, pageSize, status, description, startDate, endDate);
-        return Ok(tickets);
+        ListTickets listTickets = await _ticketService.GetAllTickets(page, pageSize, status, description, startDate, endDate);
+        return Ok(listTickets);
     }
     
     [HttpGet("{id}")]

@@ -32,4 +32,16 @@ public class TicketRepository : GenericRepository<Ticket>,ITicketRepository
         return await query.ToListAsync();
     }
     
+    public async Task<int> CountAsync(List<Expression<Func<Ticket, bool>>> filters)
+    {
+        IQueryable<Ticket> query = _dbSet.Tickets.AsQueryable();
+
+        foreach (var filter in filters)
+        {
+            query = query.Where(filter);
+        }
+
+        return await query.CountAsync();
+    }
+    
 }

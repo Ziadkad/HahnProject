@@ -6,6 +6,7 @@ using Backend.Enums;
 using Backend.Exceptions;
 using Backend.Repositories.Interfaces;
 using Backend.Services.Interfaces;
+using Backend.ViewModel;
 
 namespace Backend.Services;
 
@@ -23,7 +24,7 @@ public class TicketService : ITicketService
     }
     
     //Retrieves all tickets with optional filtering by status, description, and date range.
-    public async Task<List<Ticket>> GetAllTickets(int page, int pageSize, Status? status = null, string? description = null, DateTime? startDate = null, DateTime? endDate = null)
+    public async Task<ListTickets> GetAllTickets(int page, int pageSize, Status? status = null, string? description = null, DateTime? startDate = null, DateTime? endDate = null)
     {
         List<Expression<Func<Ticket, bool>>> filters = new List<Expression<Func<Ticket, bool>>>();
         
@@ -53,11 +54,16 @@ public class TicketService : ITicketService
             filters.Add(t => t.Date <= endDate.Value);
             _logger.LogInformation("Filtering by end date: {EndDate}", endDate.Value);
         }
-        
+        int totalCount = await _ticketRepository.CountAsync(filters);
+        int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
         // Get filtered tickets
         List<Ticket> tickets = await _ticketRepository.GetAllAsNoTrackingWithPagination(filters, page, pageSize);
         _logger.LogInformation("Retrieved {Count} tickets from page {Page} with page size {PageSize}", tickets.Count, page, pageSize);
-        return tickets;
+        return new ListTickets
+        {
+            Tickets = tickets,
+            PagesCount = totalPages
+        };
     }
     
     // Retrieves a ticket by its ID.
