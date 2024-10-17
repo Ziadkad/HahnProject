@@ -10,13 +10,15 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
+import { ErrorMessageComponent } from './Components/error-message/error-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AddComponent,
-    NavbarComponent
+    NavbarComponent,
+    ErrorMessageComponent
   ],
   imports: [
     BrowserModule,

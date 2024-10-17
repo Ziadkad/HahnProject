@@ -12,13 +12,14 @@ import {ToastrService} from "ngx-toastr";
 })
 export class AddComponent {
   ticketForm! : FormGroup;
-  // ticket! : Ticket;
   add : boolean = true;
   submitted: boolean = false;
   statusOptions: { key: string, value: number }[] = Object.keys(Status)
     .filter(key => isNaN(Number(key)))
     .map(key => ({ key, value: Status[key as keyof typeof Status] }));
 
+  hasError: boolean = false;
+  errorMessage! : string;
 
   constructor( private route : ActivatedRoute,
                private formBuilder: FormBuilder,
@@ -35,7 +36,9 @@ export class AddComponent {
           this.patchForm(data.ticketId,data.description,data.status,new Date(data.date));
         },
         (error) => {
-          console.error("Error adding ticket:", error);
+          console.error("Error getting the Ticket" + error)
+          this.hasError = true;
+          this.errorMessage = error.error;
         }
         )
       }
