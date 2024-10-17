@@ -31,7 +31,6 @@ export class TicketService {
     if (endDate) {
       params = params.set('endDate', endDate.toISOString());
     }
-    console.log(this.apiUrl, { params });
     return this.http.get<ListTickets>(this.apiUrl, { params });
   }
 

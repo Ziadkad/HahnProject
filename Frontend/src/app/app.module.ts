@@ -7,6 +7,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './Components/home/home.component';
 import { AddComponent } from './Components/add/add.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -19,6 +22,9 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

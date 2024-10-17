@@ -24,7 +24,6 @@ export class HomeComponent {
 
   getTickets(page: number, pageSize: number, status?: Status, description?: string, startDate?: Date, endDate?: Date) : void {
     this.ticketService.getAllTickets(page, pageSize, status, description, startDate, endDate).subscribe(data=>{
-      console.log(data);
       this.tickets = data.tickets;
       this.pageCount = data.pagesCount;
     })
