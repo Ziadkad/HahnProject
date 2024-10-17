@@ -55,7 +55,7 @@
         <a [routerLink]="['/updateTicket/'+ticket.ticketId]" class="font-medium text-blue-600 hover:underline">Update</a>
       </td>
       <td class="px-6 py-4">
-        <button class="font-medium text-red-600 hover:underline">Delete</button>
+        <button (click)="deleteTicket(ticket.ticketId)" class="font-medium text-red-600 hover:underline">Delete</button>
       </td>
     </tr>
     </tbody>
@@ -65,7 +65,7 @@
 <div class="flex justify-center pt-4">
   <ul class="inline-flex -space-x-px text-base h-10">
     <li>
-      <button href="#" (click)="changePage(activePage - 1)"
+      <button (click)="changePage(activePage - 1)"
          [class]="isFirstPage() ? 'cursor-not-allowed text-gray-300' : 'text-gray-500'"
          [attr.aria-disabled]="isFirstPage() ? true : null"
          class="flex items-center justify-center px-4 h-10 leading-tight bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
@@ -81,7 +81,7 @@
     </li>
 
     <li>
-      <button href="#" (click)="changePage(activePage + 1)"
+      <button (click)="changePage(activePage + 1)"
          [class]="isLastPage() ? 'cursor-not-allowed text-gray-300' : 'text-gray-500'"
          [attr.aria-disabled]="isLastPage() ? true : null"
          class="flex items-center justify-center px-4 h-10 leading-tight bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"

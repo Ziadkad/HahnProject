@@ -30,6 +30,14 @@ export class HomeComponent {
     })
   }
 
+  deleteTicket(id:number) : void{
+    const confirmed : boolean = confirm('Are you sure you want to delete this ticket?');
+    if (confirmed) {
+      this.ticketService.deleteTicket(id).subscribe(() => {
+        this.getTickets(this.activePage, this.pageSize);
+      });
+    }
+  }
 
   getTicketStatusText(status: Status): string {
     return Status[status];
