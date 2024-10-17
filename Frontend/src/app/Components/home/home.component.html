@@ -37,22 +37,22 @@
       </th>
     </tr>
     </thead>
-    <tbody>
-    <tr class="bg-white border-b">
+    <tbody *ngIf="tickets">
+    <tr *ngFor="let ticket of tickets" class="bg-white border-b">
       <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-        Apple MacBook Pro 17"
+        {{ticket.ticketId}}
       </th>
       <td class="px-6 py-4">
-        Silver
+        {{ticket.description}}
       </td>
       <td class="px-6 py-4">
-        Laptop
+        {{ getTicketStatusText(ticket.status) }}
       </td>
       <td class="px-6 py-4">
-        $2999
+        {{ticket.date | date}}
       </td>
       <td class="px-6 py-4">
-        <a [routerLink]="['/updateoffer/']" class="font-medium text-blue-600 hover:underline">Update</a>
+        <a [routerLink]="['/updateTicket/'+ticket.ticketId]" class="font-medium text-blue-600 hover:underline">Update</a>
       </td>
       <td class="px-6 py-4">
         <button class="font-medium text-red-600 hover:underline">Delete</button>
@@ -65,17 +65,29 @@
 <div class="flex justify-center pt-4">
   <ul class="inline-flex -space-x-px text-base h-10">
     <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">Previous</a>
+      <button href="#" (click)="changePage(activePage - 1)"
+         [class]="isFirstPage() ? 'cursor-not-allowed text-gray-300' : 'text-gray-500'"
+         [attr.aria-disabled]="isFirstPage() ? true : null"
+         class="flex items-center justify-center px-4 h-10 leading-tight bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700"
+         [disabled]="isFirstPage()">Previous</button>
     </li>
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">1</a>
+
+    <li *ngFor="let page of [].constructor(pageCount); let i = index">
+      <a href="#" (click)="changePage(i + 1)"
+         [class]="activePage === (i + 1) ? 'text-white border border-gray-300 bg-gray-600' : 'text-gray-500 bg-white border border-gray-300'"
+         class="flex items-center justify-center px-4 h-10 leading-tight hover:bg-gray-200 hover:text-gray-700">
+        {{ i + 1 }}
+      </a>
     </li>
+
     <li>
-      <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700">3</a>
-    </li>
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">Next</a>
+      <button href="#" (click)="changePage(activePage + 1)"
+         [class]="isLastPage() ? 'cursor-not-allowed text-gray-300' : 'text-gray-500'"
+         [attr.aria-disabled]="isLastPage() ? true : null"
+         class="flex items-center justify-center px-4 h-10 leading-tight bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700"
+         [disabled]="isLastPage()">Next</button>
     </li>
   </ul>
 </div>
+
 

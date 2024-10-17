@@ -13,12 +13,13 @@ export class HomeComponent {
   tickets! : Ticket[];
   pageCount! : number;
   readonly pageSize : number = 10;
+  activePage : number = 1;
   constructor(private ticketService:TicketService) {
   }
 
   ngOnInit(){
     console.log("test");
-    this.getTickets(1,this.pageSize);
+    this.getTickets(this.activePage,this.pageSize);
   }
 
   getTickets(page: number, pageSize: number, status?: Status, description?: string, startDate?: Date, endDate?: Date) : void {
@@ -27,5 +28,26 @@ export class HomeComponent {
       this.tickets = data.tickets;
       this.pageCount = data.pagesCount;
     })
+  }
+
+
+  getTicketStatusText(status: Status): string {
+    return Status[status];
+  }
+
+  changePage(page: number): void {
+    if (page > 0 && page <= this.pageCount) {
+      this.activePage = page;
+      this.getTickets(this.activePage, this.pageSize);
+    }
+  }
+
+
+  isFirstPage(): boolean {
+    return this.activePage === 1;
+  }
+
+  isLastPage(): boolean {
+    return this.activePage === this.pageCount;
   }
 }
