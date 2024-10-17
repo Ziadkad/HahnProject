@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Ticket} from "../../Interfaces/ticket";
 import {Status} from "../../Enums/status";
-import {list} from "postcss";
 import {ListTickets} from "../../Interfaces/list-tickets";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
-  private apiUrl: string;
+  private readonly apiUrl: string;
   constructor(private http:HttpClient) {
     this.apiUrl = `${environment.apiUrl}/Ticket`
   }
@@ -32,6 +31,7 @@ export class TicketService {
     if (endDate) {
       params = params.set('endDate', endDate.toISOString());
     }
+    console.log(this.apiUrl, { params });
     return this.http.get<ListTickets>(this.apiUrl, { params });
   }
 
