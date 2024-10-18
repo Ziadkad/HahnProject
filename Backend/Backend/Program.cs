@@ -27,7 +27,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AngularFrontend",
-        builder => builder.WithOrigins("http://localhost:4200")
+        cp => cp.WithOrigins("http://localhost:4200")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
