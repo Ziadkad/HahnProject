@@ -13,6 +13,7 @@ import {ToastrService} from "ngx-toastr";
 export class AddComponent {
   ticketForm! : FormGroup;
   add : boolean = true;
+  id! : number;
   submitted: boolean = false;
   statusOptions: { key: string, value: number }[] = Object.keys(Status)
     .filter(key => isNaN(Number(key)))
@@ -20,6 +21,8 @@ export class AddComponent {
 
   hasError: boolean = false;
   errorMessage! : string;
+
+
 
   constructor( private route : ActivatedRoute,
                private formBuilder: FormBuilder,
@@ -32,6 +35,7 @@ export class AddComponent {
     this.route.params.subscribe(params => {
       if (params['id']) {
         this.add = false;
+        this.id = params['id'];
         this.ticketService.getTicket(params['id']).subscribe(data => {
           this.patchForm(data.ticketId,data.description,data.status,new Date(data.date));
         },
@@ -66,9 +70,11 @@ export class AddComponent {
 
   onSubmitTicketForm(){
     this.submitted = true;
+    console.log(this.ticketForm.value);
     if(this.ticketForm.valid) {
       if (this.add) {
         this.Createticket();
+
       } else {
         this.UpdateTicket();
       }
@@ -81,6 +87,7 @@ export class AddComponent {
         timeOut: 2000,
       });
       setTimeout(() => {
+        this.submitted = false;
         this.router.navigate(['']);
       }, 1000);
     },
@@ -93,11 +100,12 @@ export class AddComponent {
   }
 
   UpdateTicket():void{
-    this.ticketService.createTicket(this.ticketForm.value).subscribe(()=>{
+    this.ticketService.updateTicket(this.id,this.ticketForm.value).subscribe(()=>{
       this.toastr.success("Your ticket was Updated Successfully","Success",{
         timeOut: 2000,
       });
       setTimeout(() => {
+        this.submitted = false;
         this.router.navigate(['']);
       }, 1000);
       },

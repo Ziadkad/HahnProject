@@ -7,7 +7,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './Components/home/home.component';
 import { AddComponent } from './Components/add/add.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import { ErrorMessageComponent } from './Components/error-message/error-message.component';
@@ -24,6 +24,7 @@ import { ErrorMessageComponent } from './Components/error-message/error-message.
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

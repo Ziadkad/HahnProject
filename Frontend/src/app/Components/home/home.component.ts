@@ -14,6 +14,16 @@ export class HomeComponent {
   pageCount! : number;
   readonly pageSize : number = 10;
   activePage : number = 1;
+
+  //filters
+  selectedStatus?: Status;
+  filterDescription?: string;
+  filterStartDate?: string;
+  filterEndDate?: string;
+  statusOptions: { key: string, value: number }[] = Object.keys(Status)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({ key, value: Status[key as keyof typeof Status] }));
+
   constructor(private ticketService:TicketService) {
   }
 
@@ -22,7 +32,9 @@ export class HomeComponent {
     this.getTickets(this.activePage,this.pageSize);
   }
 
-  getTickets(page: number, pageSize: number, status?: Status, description?: string, startDate?: Date, endDate?: Date) : void {
+  getTickets(page: number, pageSize: number, status?: Status, description?: string, startDate?: string, endDate?: string) : void {
+
+    console.log("get func  "+status + description);
     this.ticketService.getAllTickets(page, pageSize, status, description, startDate, endDate).subscribe(data=>{
       this.tickets = data.tickets;
       this.pageCount = data.pagesCount;
@@ -40,6 +52,12 @@ export class HomeComponent {
 
   getTicketStatusText(status: Status): string {
     return Status[status];
+  }
+
+  applyFilters(): void {
+    this.activePage = 1;
+    console.log(this.selectedStatus);
+    this.getTickets(this.activePage, this.pageSize, this.selectedStatus, this.filterDescription, this.filterStartDate, this.filterEndDate);
   }
 
   changePage(page: number): void {

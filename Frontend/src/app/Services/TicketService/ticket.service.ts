@@ -15,22 +15,23 @@ export class TicketService {
     this.apiUrl = `${environment.apiUrl}/Ticket`
   }
 
-  getAllTickets(page: number, pageSize: number, status?: Status, description?: string, startDate?: Date, endDate?: Date): Observable<ListTickets> {
+  getAllTickets(page: number, pageSize: number, status?: Status, description?: string, startDate?: string, endDate?: string): Observable<ListTickets> {
     let params = new HttpParams()
       .set('page', page)
       .set('pageSize', pageSize);
-    if (status) {
+    if (status !== undefined && status !== null) {
       params = params.set('status', status);
     }
     if (description) {
       params = params.set('description', description);
     }
     if (startDate) {
-      params = params.set('startDate', startDate.toISOString());
+      params = params.set('startDate', startDate);
     }
     if (endDate) {
-      params = params.set('endDate', endDate.toISOString());
+      params = params.set('endDate', endDate);
     }
+    console.log(this.apiUrl, { params })
     return this.http.get<ListTickets>(this.apiUrl, { params });
   }
 

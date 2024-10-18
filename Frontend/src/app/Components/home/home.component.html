@@ -1,3 +1,38 @@
+<!--filters-->
+<div class="flex items-center gap-4 pb-4 w-full"> <!-- Added w-full here -->
+  <div class="flex-1"> <!-- Added flex-1 to make the child divs expand evenly -->
+    <label for="status" class="block mb-2 text-sm font-medium text-gray-700">Status</label>
+    <select [(ngModel)]="selectedStatus" id="status" class="border border-gray-300 text-gray-900 rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2">
+      <option value="">All</option>
+      <option *ngFor="let status of statusOptions" [ngValue]="status.value">
+        {{ status.key }}
+      </option>
+    </select>
+  </div>
+
+  <div class="flex-1"> <!-- Added flex-1 here -->
+    <label for="description" class="block mb-2 text-sm font-medium text-gray-700">Description</label>
+    <input [(ngModel)]="filterDescription" type="text" id="description" class="border border-gray-300 text-gray-900 rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2" placeholder="Enter description">
+  </div>
+
+  <div class="flex-1"> <!-- Added flex-1 here -->
+    <label for="startDate" class="block mb-2 text-sm font-medium text-gray-700">Start Date</label>
+    <input [(ngModel)]="filterStartDate" type="date" id="startDate" class="border border-gray-300 text-gray-900 rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2">
+  </div>
+
+  <div class="flex-1"> <!-- Added flex-1 here -->
+    <label for="endDate" class="block mb-2 text-sm font-medium text-gray-700">End Date</label>
+    <input [(ngModel)]="filterEndDate" type="date" id="endDate" class="border border-gray-300 text-gray-900 rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2">
+  </div>
+
+  <div class="pt-6">
+    <button (click)="applyFilters()" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">Filter</button>
+  </div>
+</div>
+
+
+
+<!--Table-->
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
   <table class="w-full text-sm text-left rtl:text-right text-gray-500">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -8,25 +43,16 @@
       <th scope="col" class="px-6 py-3">
         <div class="flex items-center">
           Description
-          <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-          </svg></a>
         </div>
       </th>
       <th scope="col" class="px-6 py-3">
         <div class="flex items-center">
           Status
-          <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-          </svg></a>
         </div>
       </th>
       <th scope="col" class="px-6 py-3">
         <div class="flex items-center">
           Date
-          <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-          </svg></a>
         </div>
       </th>
       <th scope="col" class="px-6 py-3">
@@ -52,7 +78,7 @@
         {{ticket.date | date}}
       </td>
       <td class="px-6 py-4">
-        <a [routerLink]="['/updateTicket/'+ticket.ticketId]" class="font-medium text-blue-600 hover:underline">Update</a>
+        <a [routerLink]="['/updateTicket/'+ticket.ticketId]" class="font-medium text-gray-600 hover:underline">Update</a>
       </td>
       <td class="px-6 py-4">
         <button (click)="deleteTicket(ticket.ticketId)" class="font-medium text-red-600 hover:underline">Delete</button>
