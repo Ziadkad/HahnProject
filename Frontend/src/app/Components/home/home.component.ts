@@ -63,7 +63,7 @@ export class HomeComponent {
   changePage(page: number): void {
     if (page > 0 && page <= this.pageCount) {
       this.activePage = page;
-      this.getTickets(this.activePage, this.pageSize);
+      this.getTickets(this.activePage, this.pageSize, this.selectedStatus, this.filterDescription, this.filterStartDate, this.filterEndDate);
     }
   }
 
