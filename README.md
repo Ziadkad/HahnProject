@@ -32,7 +32,9 @@ This project consists of a **frontend** built with **Angular** and a **backend**
    **SqlServer** will be accessible at `localhost,1433` with username `sa` and Password `YourPassword123`. The **backend** will be accessible at `http://localhost:5000`, and the **frontend** will be accessible at `http://localhost:4200`.
 
 ## Stopping the Docker Containers
+
     To stop the running containers, run:
+    
     ```bash
     docker-compose down
     ```
