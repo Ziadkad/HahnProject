@@ -34,7 +34,6 @@ This project consists of a **frontend** built with **Angular** and a **backend**
 ## Stopping the Docker Containers
 
     To stop the running containers, run:
-    
     ```bash
     docker-compose down
     ```
